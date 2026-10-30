@@ -1,0 +1,53 @@
+:root {
+  
+  --color-primario: #0b7a75;
+  --color-primario-oscuro: #095c58;
+  --color-secundario: #1f4e79;
+  --color-acento: #2ecc9a;
+  --color-fondo: #f4f8f9;
+  --color-superficie: #ffffff;
+  --color-texto: #1d2b36;
+  --color-texto-suave: #5b6b78;
+  --color-borde: #d7e2e6;
+
+  /* Estados */
+  --color-exito: #2e9e5b;
+  --color-aviso: #e0a100;
+  --color-peligro: #d64545;
+  --color-info: #2f80ed;
+
+  /* Tipografia */
+  --fuente-base: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  --tam-base: 1rem;
+  --tam-pequeno: 0.875rem;
+  --tam-h1: 1.75rem;
+  --tam-h2: 1.375rem;
+
+  /* Espaciado y formas */
+  --espacio-1: 0.25rem;
+  --espacio-2: 0.5rem;
+  --espacio-3: 1rem;
+  --espacio-4: 1.5rem;
+  --espacio-5: 2rem;
+  --radio: 8px;
+  --sombra: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  /* Alturas de layout */
+  --altura-navbar: 56px;
+}
+
+/* Tipografia mas grande en pantallas grandes */
+@media (min-width: 768px) {
+  :root {
+    --tam-h1: 2rem;
+    --tam-h2: 1.5rem;
+  }
+}
+@media (min-width: 1920px) {
+  :root {
+    --tam-base: 1.25rem;
+    --tam-h1: 2.5rem;
+    --tam-h2: 1.875rem;
+    --altura-navbar: 72px;
+  }
+}
