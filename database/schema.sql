@@ -1,4 +1,4 @@
--- Creación de la base de datos apra la PWA de la Farmacia
+-- Creación de la base de datos para la PWA de la Farmacia
 CREATE DATABASE IF NOT EXISTS pwa_farmacia;
 USE pwa_farmacia;
 
