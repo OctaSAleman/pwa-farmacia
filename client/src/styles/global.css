@@ -1,0 +1,51 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fuente-base);
+  font-size: var(--tam-base);
+  color: var(--color-texto);
+  background: var(--color-fondo);
+  line-height: 1.5;
+
+  /* En iPhone (viewport-fit=cover) */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+h1 { font-size: var(--tam-h1); margin: 0 0 var(--espacio-3); }
+h2 { font-size: var(--tam-h2); margin: 0 0 var(--espacio-3); }
+
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--color-primario);
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+main {
+  padding: var(--espacio-3);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Tabla con scroll horizontal en movil */
+.tabla-scroll {
+  overflow-x: auto;
+}
