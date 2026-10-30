@@ -1,0 +1,23 @@
+/* Breakpoints mobile-first (Alan - UX)
+   768px = tableta, 1024px = PC, 1920px = TV */
+
+/* Tableta */
+@media (min-width: 768px) {
+  main {
+    padding: var(--espacio-4);
+  }
+}
+
+/* PC */
+@media (min-width: 1024px) {
+  main {
+    padding: var(--espacio-5);
+  }
+}
+
+/* TV */
+@media (min-width: 1920px) {
+  main {
+    max-width: 1700px;
+  }
+}
