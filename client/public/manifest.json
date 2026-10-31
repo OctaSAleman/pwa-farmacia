@@ -1,16 +1,19 @@
 {
     "short_name": "FarmaciaPWA",
     "name": "Sistema de Control de Medicamentos PWA",
+    "description": "Aplicación Web Progresiva para el control de inventario de medicamentos",
     "icons": [
         {
             "src": "./assets/icons/icon-192.png",
             "type": "image/png",
-            "sizes": "192x192"
+            "sizes": "192x192",
+            "purpose": "any maskable"
         },
         {
             "src": "./assets/icons/icon-192.png",
             "type": "image/png",
-            "sizes": "512x512"
+            "sizes": "512x512",
+            "purpose": "any maskable"
         }
     ],
     "start_rul": "./index.html",

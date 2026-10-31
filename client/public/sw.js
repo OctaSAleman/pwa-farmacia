@@ -35,3 +35,14 @@ self.addEventListener('fetch', (e) => {
         .catch(() => caches.match(e.request))
     );
 });
+
+// Evento Push: Recepción de eventos en segundo plano
+self.addEventListener('push', (e) => {
+    const data = e.data ? e.data.text() : 'Notificación del sistema de farmacia';
+    e.waitUntil(
+        self.registration.showNotification('Farmacia PWA', {
+            body: data,
+            icon: './assets/icons/icon-192.png'
+        })
+    );
+})
