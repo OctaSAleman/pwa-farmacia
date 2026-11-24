@@ -1,0 +1,91 @@
+.fondo {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.dialogo {
+  width: 100%;
+  max-width: 420px;
+  padding: 1.25rem;
+  background: #fff;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.titulo {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+}
+
+.mensaje {
+  margin: 0 0 1.25rem;
+  color: #55606b;
+}
+
+.acciones {
+  display: flex;
+  flex-direction: column-reverse; /* móvil: botones apilados */
+  gap: 0.6rem;
+}
+
+.cancelar,
+.confirmar {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cancelar {
+  color: #1f2933;
+  background: #fff;
+  border: 1px solid #b8c2cc;
+}
+
+.confirmar {
+  color: #fff;
+  background: #c62828;
+  border: none;
+}
+
+.cancelar:disabled,
+.confirmar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cancelar:focus-visible,
+.confirmar:focus-visible {
+  outline: 3px solid #1a73e8;
+  outline-offset: 2px;
+}
+
+/* Tableta en adelante: botones en fila */
+@media (min-width: 768px) {
+  .acciones {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
+
+/* TV */
+@media (min-width: 1920px) {
+  .dialogo {
+    max-width: 640px;
+  }
+  .titulo {
+    font-size: 2rem;
+  }
+  .mensaje,
+  .cancelar,
+  .confirmar {
+    font-size: 1.4rem;
+  }
+}
