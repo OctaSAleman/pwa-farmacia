@@ -1,0 +1,47 @@
+/* Pantalla de login (Alan - UX).
+   Clases para Login.jsx de Gerardo:
+   contenedor, tarjeta, logo, titulo, campo, etiqueta, input, error */
+.contenedor {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--espacio-3);
+  background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
+}
+
+.tarjeta {
+  width: 100%;
+  max-width: 400px;
+  padding: var(--espacio-4);
+  background: var(--color-superficie);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+}
+
+.logo { width: 72px; margin: 0 auto var(--espacio-3); }
+
+.titulo { text-align: center; margin-bottom: var(--espacio-4); }
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+  margin-bottom: var(--espacio-3);
+}
+
+.etiqueta { font-size: var(--tam-pequeno); color: var(--color-texto-suave); }
+
+.input {
+  min-height: 44px;
+  padding: 0 var(--espacio-3);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+}
+
+.input:focus {
+  outline: 2px solid var(--color-primario);
+  border-color: var(--color-primario);
+}
+
+.error { color: var(--color-peligro); font-size: var(--tam-pequeno); margin-bottom: var(--espacio-3); }

@@ -1,0 +1,34 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: var(--altura-navbar);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--espacio-3);
+  background: var(--color-primario);
+  color: #fff;
+  box-shadow: var(--sombra);
+}
+
+.marca {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.enlaces { display: flex; gap: var(--espacio-3); }
+
+.enlace {
+  color: #fff;
+  text-decoration: none;
+  padding: var(--espacio-2);
+  border-radius: var(--radio);
+}
+
+.enlace:hover,
+.enlace.active {
+  background: rgba(255, 255, 255, 0.2);
+}

@@ -1,0 +1,12 @@
+.alerta {
+  padding: var(--espacio-3);
+  border-radius: var(--radio);
+  border-left: 5px solid;
+  margin-bottom: var(--espacio-3);
+  font-size: var(--tam-pequeno);
+}
+
+.exito   { background: #e6f6ec; border-color: var(--color-exito);   color: #1b5e37; }
+.aviso   { background: #fff6dd; border-color: var(--color-aviso);   color: #7a5a00; }
+.peligro { background: #fdeaea; border-color: var(--color-peligro); color: #8f2323; }
+.info    { background: #e8f1fd; border-color: var(--color-info);    color: #1d4e8f; }
