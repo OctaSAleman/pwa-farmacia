@@ -1,31 +1,39 @@
 .fondo {
   position: fixed;
   inset: 0;
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: aparecer 150ms ease;
 }
 
 .dialogo {
   width: 100%;
-  max-width: 420px;
-  padding: 1.25rem;
-  background: #fff;
-  border-radius: 12px;
-  box-sizing: border-box;
+  max-width: 440px;
+  padding: 1.75rem;
+  color: var(--color-texto);
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-top: 3px solid var(--color-peligro);
+  border-radius: var(--radio-grande);
+  box-shadow: var(--sombra);
+  animation: subir 180ms ease;
 }
 
 .titulo {
   margin: 0 0 0.5rem;
-  font-size: 1.25rem;
+  font-size: 1.4rem;
+  font-weight: 900;
 }
 
 .mensaje {
-  margin: 0 0 1.25rem;
-  color: #55606b;
+  margin: 0 0 1.5rem;
+  color: var(--color-texto-suave);
 }
 
 .acciones {
@@ -36,23 +44,33 @@
 
 .cancelar,
 .confirmar {
-  padding: 0.75rem 1rem;
+  min-height: 46px;
+  padding: 0.7rem 1.3rem;
   font-size: 1rem;
-  font-weight: 600;
-  border-radius: 8px;
+  font-weight: 800;
+  border-radius: 999px;
   cursor: pointer;
+  transition: background var(--transicion), filter var(--transicion);
 }
 
 .cancelar {
-  color: #1f2933;
-  background: #fff;
-  border: 1px solid #b8c2cc;
+  color: var(--color-texto);
+  background: var(--color-superficie-3);
+  border: none;
+}
+
+.cancelar:hover:not(:disabled) {
+  background: #3a3a43;
 }
 
 .confirmar {
   color: #fff;
-  background: #c62828;
+  background: var(--color-peligro);
   border: none;
+}
+
+.confirmar:hover:not(:disabled) {
+  filter: brightness(1.1);
 }
 
 .cancelar:disabled,
@@ -63,8 +81,16 @@
 
 .cancelar:focus-visible,
 .confirmar:focus-visible {
-  outline: 3px solid #1a73e8;
+  outline: 3px solid var(--color-texto);
   outline-offset: 2px;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; }
+}
+
+@keyframes subir {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
 }
 
 /* Tableta en adelante: botones en fila */
@@ -77,15 +103,9 @@
 
 /* TV */
 @media (min-width: 1920px) {
-  .dialogo {
-    max-width: 640px;
-  }
-  .titulo {
-    font-size: 2rem;
-  }
+  .dialogo { max-width: 640px; }
+  .titulo { font-size: 2rem; }
   .mensaje,
   .cancelar,
-  .confirmar {
-    font-size: 1.4rem;
-  }
+  .confirmar { font-size: 1.4rem; }
 }

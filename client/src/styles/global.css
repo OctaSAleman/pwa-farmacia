@@ -6,20 +6,34 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  background: var(--color-fondo);
 }
 
 body {
   margin: 0;
+  min-height: 100vh;
   font-family: var(--fuente-base);
   font-size: var(--tam-base);
   color: var(--color-texto);
-  background: var(--color-fondo);
+  background:
+    radial-gradient(1200px 500px at 15% -10%, color-mix(in srgb, var(--color-primario) 14%, transparent), transparent 60%),
+    var(--color-fondo);
+  background-attachment: fixed;
   line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 
   /* En iPhone (viewport-fit=cover) */
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
   padding-bottom: env(safe-area-inset-bottom);
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
 }
 
 h1 { font-size: var(--tam-h1); margin: 0 0 var(--espacio-3); }
@@ -37,6 +51,22 @@ a {
 
 button, input, select, textarea {
   font: inherit;
+}
+
+::selection {
+  color: var(--color-texto-sobre-primario);
+  background: var(--color-primario);
+}
+
+/* Barra de scroll oscura */
+* {
+  scrollbar-color: var(--color-superficie-3) var(--color-fondo);
+}
+
+/* Fechas y selects con controles oscuros */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.7;
 }
 
 main {

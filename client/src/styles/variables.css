@@ -1,26 +1,44 @@
+/* =====================================================================
+   TEMA OSCURO (estilo plataformas de streaming / consolas)
+   ---------------------------------------------------------------------
+   Para cambiar el color principal de TODA la página, cambia solo
+   --color-primario y --color-primario-oscuro por uno de estos:
+
+     Verde   (estilo consola)     #2fd15a   /  #1fa344
+     Rojo    (estilo streaming)   #e50914   /  #b20710
+     Naranja (estilo naranja)     #ff9000   /  #d97a00
+   ===================================================================== */
 :root {
-  
-  --color-primario: #0b7a75;
-  --color-primario-oscuro: #095c58;
-  --color-secundario: #1f4e79;
-  --color-acento: #2ecc9a;
-  --color-fondo: #f4f8f9;
-  --color-superficie: #ffffff;
-  --color-texto: #1d2b36;
-  --color-texto-suave: #5b6b78;
-  --color-borde: #d7e2e6;
+  /* Color principal (acento) */
+  --color-primario: #2fd15a;
+  --color-primario-oscuro: #1fa344;
+  --color-texto-sobre-primario: #050505;
+
+  --color-secundario: #1b1b1f;
+  --color-acento: #ffffff;
+
+  /* Fondos */
+  --color-fondo: #0b0b0d;
+  --color-superficie: #16161a;
+  --color-superficie-2: #202026;
+  --color-superficie-3: #2a2a31;
+
+  /* Texto y bordes */
+  --color-texto: #f5f5f7;
+  --color-texto-suave: #a1a1aa;
+  --color-borde: #2e2e35;
 
   /* Estados */
-  --color-exito: #2e9e5b;
-  --color-aviso: #e0a100;
-  --color-peligro: #d64545;
-  --color-info: #2f80ed;
+  --color-exito: #2fd15a;
+  --color-aviso: #ffb020;
+  --color-peligro: #ff4d4f;
+  --color-info: #4da3ff;
 
   /* Tipografia */
-  --fuente-base: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  --fuente-base: "Segoe UI", "Inter", system-ui, -apple-system, Roboto, Arial, sans-serif;
   --tam-base: 1rem;
   --tam-pequeno: 0.875rem;
-  --tam-h1: 1.75rem;
+  --tam-h1: 2rem;
   --tam-h2: 1.375rem;
 
   /* Espaciado y formas */
@@ -29,25 +47,30 @@
   --espacio-3: 1rem;
   --espacio-4: 1.5rem;
   --espacio-5: 2rem;
-  --radio: 8px;
-  --sombra: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --radio: 10px;
+  --radio-grande: 16px;
+  --sombra: 0 10px 30px rgba(0, 0, 0, 0.55);
+  --brillo: 0 0 0 1px var(--color-primario), 0 8px 28px color-mix(in srgb, var(--color-primario) 35%, transparent);
+  --transicion: 180ms ease;
 
   /* Alturas de layout */
-  --altura-navbar: 56px;
+  --altura-navbar: 64px;
+
+  color-scheme: dark;
 }
 
 /* Tipografia mas grande en pantallas grandes */
 @media (min-width: 768px) {
   :root {
-    --tam-h1: 2rem;
-    --tam-h2: 1.5rem;
+    --tam-h1: 2.6rem;
+    --tam-h2: 1.6rem;
   }
 }
 @media (min-width: 1920px) {
   :root {
     --tam-base: 1.25rem;
-    --tam-h1: 2.5rem;
-    --tam-h2: 1.875rem;
-    --altura-navbar: 72px;
+    --tam-h1: 3.4rem;
+    --tam-h2: 2rem;
+    --altura-navbar: 80px;
   }
 }

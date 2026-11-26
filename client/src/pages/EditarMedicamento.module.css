@@ -8,8 +8,13 @@
 .volver {
   display: inline-block;
   margin-bottom: var(--espacio-3);
-  color: var(--color-primario);
-  font-weight: 600;
+  font-weight: 800;
+  color: var(--color-texto-suave);
+  text-decoration: none;
+}
+
+.volver:hover {
+  color: var(--color-texto);
 }
 
 .encabezado {
@@ -26,23 +31,23 @@
 }
 
 .ayuda {
-  margin: 0 0 var(--espacio-3);
+  margin: 0 0 var(--espacio-4, 1.5rem);
   color: var(--color-texto-suave);
 }
 
 .botonEliminar {
-  padding: 0.6rem 1rem;
+  padding: 0.65rem 1.4rem;
   font-size: var(--tam-base);
-  font-weight: 600;
+  font-weight: 900;
   color: #fff;
   background: var(--color-peligro);
   border: none;
-  border-radius: var(--radio);
+  border-radius: 999px;
   cursor: pointer;
 }
 
 .botonEliminar:hover {
-  filter: brightness(0.92);
+  filter: brightness(1.1);
 }
 
 .botonEliminar:focus-visible,
@@ -53,10 +58,11 @@
 
 .errorApi {
   padding: 0.75rem 1rem;
-  margin: var(--espacio-3) 0;
-  color: #7a1010;
-  background: #fdecea;
-  border: 1px solid #c62828;
+  margin: 1rem 0;
+  font-weight: 600;
+  color: #ffb4b4;
+  background: color-mix(in srgb, var(--color-peligro) 14%, transparent);
+  border-left: 4px solid var(--color-peligro);
   border-radius: var(--radio);
 }
 

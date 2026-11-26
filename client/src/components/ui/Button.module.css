@@ -13,7 +13,7 @@
   cursor: not-allowed;
 }
 
-.primario { background: var(--color-primario); color: #fff; }
+.primario { background: var(--color-primario); color: var(--color-texto-sobre-primario); }
 .primario:hover:not(:disabled) { background: var(--color-primario-oscuro); }
 
 .secundario {
