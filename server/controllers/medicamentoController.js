@@ -1,113 +1,144 @@
-const db = require('../config/db'):
+const db = require('../config/db');
+const { validarMedicamento } = require('../utils/validaciones');
 
-// 1. Listar todos los medicamentos activos
+// Columnas que se regresan al frontend
+const COLUMNAS = `id, nombre_comercial, sustancia_activa, presentacion, concentracion,
+    lote, DATE_FORMAT(fecha_caducidad, '%Y-%m-%d') AS fecha_caducidad,
+    precio_publico, stock_actual, stock_minimo, imagen_url`;
+
+// mysql2 devuelve DECIMAL como texto; se convierte a número
+function formatear(m) {
+    return { ...m, precio_publico: Number(m.precio_publico) };
+}
+
+// El id debe ser un entero positivo
+function idValido(valor) {
+    const id = Number(valor);
+    return Number.isInteger(id) && id > 0 ? id : null;
+}
+
+// Arma el arreglo de valores en el orden de las columnas
+function valoresDe(body) {
+    return [
+        String(body.nombre_comercial).trim(),
+        String(body.sustancia_activa).trim(),
+        body.presentacion,
+        String(body.concentracion).trim(),
+        String(body.lote).trim(),
+        String(body.fecha_caducidad).slice(0, 10),
+        Number(body.precio_publico),
+        Number(body.stock_actual),
+        Number(body.stock_minimo),
+        body.imagen_url ? String(body.imagen_url).trim() : null
+    ];
+}
+
+// Toma el primer error de validación para mandarlo en el campo "error"
+function respuestaValidacion(res, errores) {
+    return res.status(400).json({ error: Object.values(errores)[0], errores });
+}
+
+// 1. Listar todos los medicamentos
 const obtenerMedicamentos = async (req, res) => {
     try {
-        const [rows] = await db.query('SELECT * FROM medicamentos WHERE estatus =1');
-        res.json(rows);
+        const [rows] = await db.query(
+            `SELECT ${COLUMNAS} FROM medicamentos ORDER BY nombre_comercial`
+        );
+        res.json(rows.map(formatear));
     } catch (error) {
-        res.estatus(500).json({ error: 'Error al obtener los medicamentos'});
+        console.error('Error al obtener los medicamentos:', error.message);
+        res.status(500).json({ error: 'Error al obtener los medicamentos' });
     }
 };
 
 // 2. Obtener un medicamento por ID
 const obtenerMedicamentoPorId = async (req, res) => {
+    const id = idValido(req.params.id);
+    if (!id) return res.status(400).json({ error: 'El id del medicamento no es válido' });
+
     try {
-        const { id } = req.params;
-        const [rows] = await db.query('SELECT * FROM medicamentos WHERE id = ? AND estatus = 1', [id]);
-        
+        const [rows] = await db.query(
+            `SELECT ${COLUMNAS} FROM medicamentos WHERE id = ?`,
+            [id]
+        );
+
         if (rows.length === 0) {
             return res.status(404).json({ error: 'Medicamento no encontrado' });
         }
-        res.json(rows[0]);
+        res.json(formatear(rows[0]));
     } catch (error) {
+        console.error('Error al obtener el medicamento:', error.message);
         res.status(500).json({ error: 'Error al obtener el medicamento' });
     }
 };
 
 // 3. Crear un nuevo medicamento
 const crearMedicamento = async (req, res) => {
+    const errores = validarMedicamento(req.body);
+    if (Object.keys(errores).length > 0) return respuestaValidacion(res, errores);
+
     try {
-        const {
-            nombre_comercial, sustancia_activa, presentacion,
-            concentracion, lote, fecha_caducidad,
-            precio_publico, stock_actual, stock_minimo, imagen_url
-        } = req.body;
+        const [resultado] = await db.query(
+            `INSERT INTO medicamentos
+            (nombre_comercial, sustancia_activa, presentacion, concentracion, lote,
+             fecha_caducidad, precio_publico, stock_actual, stock_minimo, imagen_url)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            valoresDe(req.body)
+        );
 
-        // Validaciones básicas de campos obligatorios
-        if (!nombre_comercial || !sustancia_activa || !presentacion || !concentracion || !lote || !fecha_caducidad || precio_publico === undefined || stock_actual === undefined || stock_minimo === undefined) {
-            return res.status(400).json({ error: 'Faltan campos obligatorios' });
-        }
-
-        const query = `
-            INSERT INTO medicamentos 
-            (nombre_comercial, sustancia_activa, presentacion, concentracion, lote, fecha_caducidad, precio_publico, stock_actual, stock_minimo, imagen_url) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `;
-
-        const [resultado] = await db.query(query, [
-            nombre_comercial, sustancia_activa, presentacion,
-            concentracion, lote, fecha_caducidad,
-            precio_publico, stock_actual, stock_minimo, imagen_url || null
-        ]);
-
-        res.status(201).json({
-            id: resultado.insertId,
-            message: 'Medicamento creado exitosamente',
-            ...req.body
-        });
+        const [rows] = await db.query(`SELECT ${COLUMNAS} FROM medicamentos WHERE id = ?`, [resultado.insertId]);
+        res.status(201).json(formatear(rows[0]));
     } catch (error) {
+        console.error('Error al crear el medicamento:', error.message);
         res.status(500).json({ error: 'Error al crear el medicamento' });
     }
 };
 
 // 4. Actualizar un medicamento
 const actualizarMedicamento = async (req, res) => {
+    const id = idValido(req.params.id);
+    if (!id) return res.status(400).json({ error: 'El id del medicamento no es válido' });
+
+    const errores = validarMedicamento(req.body);
+    if (Object.keys(errores).length > 0) return respuestaValidacion(res, errores);
+
     try {
-        const { id } = req.params;
-        const {
-            nombre_comercial, sustancia_activa, presentacion,
-            concentracion, lote, fecha_caducidad,
-            precio_publico, stock_actual, stock_minimo, imagen_url
-        } = req.body;
-
-        const query = `
-            UPDATE medicamentos SET 
-            nombre_comercial = ?, sustancia_activa = ?, presentacion = ?, 
-            concentracion = ?, lote = ?, fecha_caducidad = ?, 
+        const [resultado] = await db.query(
+            `UPDATE medicamentos SET
+            nombre_comercial = ?, sustancia_activa = ?, presentacion = ?,
+            concentracion = ?, lote = ?, fecha_caducidad = ?,
             precio_publico = ?, stock_actual = ?, stock_minimo = ?, imagen_url = ?
-            WHERE id = ?
-        `;
-
-        const [resultado] = await db.query(query, [
-            nombre_comercial, sustancia_activa, presentacion,
-            concentracion, lote, fecha_caducidad,
-            precio_publico, stock_actual, stock_minimo, imagen_url || null, id
-        ]);
+            WHERE id = ?`,
+            [...valoresDe(req.body), id]
+        );
 
         if (resultado.affectedRows === 0) {
             return res.status(404).json({ error: 'Medicamento no encontrado' });
         }
 
-        res.json({ message: 'Medicamento actualizado correctamente' });
+        const [rows] = await db.query(`SELECT ${COLUMNAS} FROM medicamentos WHERE id = ?`, [id]);
+        res.json(formatear(rows[0]));
     } catch (error) {
+        console.error('Error al actualizar el medicamento:', error.message);
         res.status(500).json({ error: 'Error al actualizar el medicamento' });
     }
 };
 
-// 5. Borrado lógico (Inactivar medicamento)
+// 5. Eliminar un medicamento
 const eliminarMedicamento = async (req, res) => {
+    const id = idValido(req.params.id);
+    if (!id) return res.status(400).json({ error: 'El id del medicamento no es válido' });
+
     try {
-        const { id } = req.params;
-        // Borrado lógico: cambiamos el estatus a 0 en lugar de borrar la fila físicamente
-        const [resultado] = await db.query('UPDATE medicamentos SET estatus = 0 WHERE id = ?', [id]);
+        const [resultado] = await db.query('DELETE FROM medicamentos WHERE id = ?', [id]);
 
         if (resultado.affectedRows === 0) {
             return res.status(404).json({ error: 'Medicamento no encontrado' });
         }
 
-        res.json({ message: 'Medicamento eliminado (baja lógica) correctamente' });
+        res.json({ mensaje: 'Medicamento eliminado correctamente' });
     } catch (error) {
+        console.error('Error al eliminar el medicamento:', error.message);
         res.status(500).json({ error: 'Error al eliminar el medicamento' });
     }
 };

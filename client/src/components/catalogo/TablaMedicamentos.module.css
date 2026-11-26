@@ -1,0 +1,143 @@
+.contenedor {
+  width: 100%;
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla thead {
+  display: none; /* en móvil cada fila es una tarjeta */
+}
+
+.tabla tr {
+  display: block;
+  margin-bottom: var(--espacio-3);
+  padding: var(--espacio-2) var(--espacio-3);
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+}
+
+.tabla td {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--espacio-3);
+  padding: var(--espacio-1) 0;
+  text-align: right;
+}
+
+/* En móvil se muestra el nombre del campo (data-label) a la izquierda */
+.tabla td::before {
+  content: attr(data-label);
+  font-weight: 600;
+  text-align: left;
+  color: var(--color-texto-suave);
+}
+
+.filaBaja {
+  border-left: 5px solid var(--color-peligro) !important;
+  background: #fff6f6 !important;
+}
+
+.imagen {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.sinImagen {
+  font-size: var(--tam-pequeno);
+  color: var(--color-texto-suave);
+}
+
+.etiquetaBaja {
+  display: inline-block;
+  margin-left: var(--espacio-2);
+  padding: 0.1rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--color-peligro);
+  border-radius: 999px;
+}
+
+.acciones {
+  display: flex;
+  gap: var(--espacio-3);
+}
+
+.enlace {
+  font-weight: 600;
+  color: var(--color-primario);
+}
+
+.enlace:focus-visible {
+  outline: 3px solid var(--color-acento);
+  outline-offset: 2px;
+}
+
+/* Desde tablet se ve como tabla normal */
+@media (min-width: 1024px) {
+  .contenedor {
+    overflow-x: auto;
+    background: var(--color-superficie);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+  }
+
+  .tabla thead {
+    display: table-header-group;
+  }
+
+  .tabla td[data-label="Lote"],
+  .tabla td[data-label="Caducidad"],
+  .tabla td[data-label="Precio"],
+  .etiquetaBaja {
+    white-space: nowrap;
+  }
+
+  .tabla th {
+    display: table-cell;
+    padding: 0.75rem;
+    text-align: left;
+    font-size: var(--tam-pequeno);
+    color: #fff;
+    background: var(--color-primario);
+    white-space: nowrap;
+  }
+
+  .tabla tr {
+    display: table-row;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .tabla td {
+    display: table-cell;
+    padding: 0.75rem;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--color-borde);
+  }
+
+  .tabla td::before {
+    content: none;
+  }
+
+  .tabla tbody tr:hover {
+    background: var(--color-fondo);
+  }
+
+  .filaBaja {
+    border-left: none !important;
+    box-shadow: inset 5px 0 0 var(--color-peligro);
+  }
+}

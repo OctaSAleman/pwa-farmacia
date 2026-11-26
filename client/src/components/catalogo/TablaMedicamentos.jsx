@@ -16,7 +16,8 @@ function formatoFecha(valor) {
 // Regla de negocio: stock bajo cuando stock_actual <= stock_minimo
 const esStockBajo = (m) => m.stock_actual <= m.stock_minimo;
 
-export default function TablaMedicamentos({ medicamentos }) {
+// esAdmin: muestra el enlace Editar solo al administrador (el backend también lo valida)
+export default function TablaMedicamentos({ medicamentos, esAdmin = false }) {
   return (
     <div className={styles.contenedor}>
       <table className={styles.tabla}>
@@ -63,9 +64,16 @@ export default function TablaMedicamentos({ medicamentos }) {
                   {bajo && <span className={styles.etiquetaBaja}>Stock bajo</span>}
                 </td>
                 <td data-label="Acciones">
-                  <Link to={`/editar/${m.id}`} className={styles.enlace}>
-                    Editar
-                  </Link>
+                  <span className={styles.acciones}>
+                    <Link to={`/medicamentos/${m.id}`} className={styles.enlace}>
+                      Ver
+                    </Link>
+                    {esAdmin && (
+                      <Link to={`/editar/${m.id}`} className={styles.enlace}>
+                        Editar
+                      </Link>
+                    )}
+                  </span>
                 </td>
               </tr>
             );

@@ -1,0 +1,80 @@
+.pagina {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: var(--espacio-3);
+  box-sizing: border-box;
+}
+
+.volver {
+  display: inline-block;
+  margin-bottom: var(--espacio-3);
+  color: var(--color-primario);
+  font-weight: 600;
+}
+
+.encabezado {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--espacio-2);
+}
+
+.titulo {
+  margin: 0 0 var(--espacio-1);
+  font-size: var(--tam-h1);
+}
+
+.ayuda {
+  margin: 0 0 var(--espacio-3);
+  color: var(--color-texto-suave);
+}
+
+.botonEliminar {
+  padding: 0.6rem 1rem;
+  font-size: var(--tam-base);
+  font-weight: 600;
+  color: #fff;
+  background: var(--color-peligro);
+  border: none;
+  border-radius: var(--radio);
+  cursor: pointer;
+}
+
+.botonEliminar:hover {
+  filter: brightness(0.92);
+}
+
+.botonEliminar:focus-visible,
+.volver:focus-visible {
+  outline: 3px solid var(--color-acento);
+  outline-offset: 2px;
+}
+
+.errorApi {
+  padding: 0.75rem 1rem;
+  margin: var(--espacio-3) 0;
+  color: #7a1010;
+  background: #fdecea;
+  border: 1px solid #c62828;
+  border-radius: var(--radio);
+}
+
+@media (min-width: 768px) {
+  .pagina {
+    max-width: 720px;
+    padding: var(--espacio-4);
+  }
+}
+
+@media (min-width: 1024px) {
+  .pagina {
+    max-width: 900px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .pagina {
+    max-width: 1400px;
+  }
+}

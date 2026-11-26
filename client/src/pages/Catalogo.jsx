@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { obtenerMedicamentos } from '../services/api.js'; // Diego
 import TablaMedicamentos from '../components/catalogo/TablaMedicamentos.jsx';
 import AlertaStockBajo from '../components/catalogo/AlertaStockBajo.jsx';
+import { useAuth } from '../context/AuthContext.jsx';
 import styles from './Catalogo.module.css';
 
 export default function Catalogo() {
@@ -10,6 +11,8 @@ export default function Catalogo() {
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState('');
   const [busqueda, setBusqueda] = useState('');
+  const { usuario } = useAuth();
+  const esAdmin = usuario?.rol === 'administrador';
 
   useEffect(() => {
     let activo = true;
@@ -40,9 +43,11 @@ export default function Catalogo() {
     <section className={styles.pagina}>
       <header className={styles.encabezado}>
         <h1 className={styles.titulo}>Catálogo de medicamentos</h1>
-        <Link to="/alta" className={styles.botonNuevo}>
-          Agregar medicamento
-        </Link>
+        {esAdmin && (
+          <Link to="/alta" className={styles.botonNuevo}>
+            Agregar medicamento
+          </Link>
+        )}
       </header>
 
       {!cargando && !error && <AlertaStockBajo medicamentos={stockBajo} />}
@@ -75,7 +80,7 @@ export default function Catalogo() {
         </p>
       )}
       {!cargando && !error && filtrados.length > 0 && (
-        <TablaMedicamentos medicamentos={filtrados} />
+        <TablaMedicamentos medicamentos={filtrados} esAdmin={esAdmin} />
       )}
     </section>
   );

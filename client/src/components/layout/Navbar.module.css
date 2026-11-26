@@ -32,3 +32,34 @@
 .enlace.active {
   background: rgba(255, 255, 255, 0.2);
 }
+.enlaces { align-items: center; }
+
+.usuario {
+  display: none;
+  font-size: var(--tam-pequeno);
+  opacity: 0.9;
+}
+
+.salir {
+  padding: var(--espacio-1) var(--espacio-3);
+  font-size: var(--tam-pequeno);
+  font-weight: 600;
+  color: #fff;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: var(--radio);
+  cursor: pointer;
+}
+
+.salir:hover { background: rgba(255, 255, 255, 0.2); }
+
+.enlace:focus-visible,
+.salir:focus-visible,
+.marca:focus-visible {
+  outline: 3px solid var(--color-acento);
+  outline-offset: 2px;
+}
+
+@media (min-width: 768px) {
+  .usuario { display: inline; }
+}
